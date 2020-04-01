@@ -77,7 +77,7 @@
 </head>
 <body>
 
-<a-scene ar raycaster-move="target:#mark">
+<a-scene ar="worldSensing:true" raycaster-move="target:#mark">
 	<a-assets>
 		<!-- Model source: https://github.com/dataarts/3-dreams-of-black
          https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf -->
@@ -265,6 +265,17 @@
 	document.getElementById('btn_full').onclick = setSize.bind(this, 1);
 	document.getElementById('btn_half').onclick = setSize.bind(this, 0.5);
 	document.getElementById('btn_quarter').onclick = setSize.bind(this, 0.0625);
+
+  window.addEventListener('touchstart', function () {
+    let position = document.querySelector('#mark').getAttribute('position');
+
+    document.getElementById('dino').setAttribute('position', position);
+    document.getElementById('light').setAttribute('position', {
+      x: (position.x - 2),
+      y: (position.y + 4),
+      z: (position.z + 2)
+    });
+  });
 
   // TODO: remove the need for this rather ugly hack for WebXR Viewer
   setTimeout(function() {
